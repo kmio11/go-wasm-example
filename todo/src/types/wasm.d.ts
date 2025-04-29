@@ -20,5 +20,14 @@ declare global {
   declare var todoWasm: {
     add: (a: number, b: number) => WasmResult<number, undefined>;
     importCsv: (bytes: Uint8Array) => WasmResult<string, undefined>;
+    asyncAdd: (any: number, b: number) => Promise<number>;
   };
+
+  namespace globalThis {
+    class CustomWasmError extends Error {
+      code: string;
+      constructor(message: string, code: string);
+    }
+    export { CustomWasmError };
+  }
 }

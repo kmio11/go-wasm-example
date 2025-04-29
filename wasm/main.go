@@ -115,12 +115,14 @@ func printHeartBeatForDebug(ctx context.Context) {
 func onInitialized()
 
 func main() {
+	fmt.Println("wasm: main()")
 	printHeartBeatForDebug(context.TODO())
 
 	c := make(chan struct{})
 	js.Global().Set("todoWasm", js.ValueOf(map[string]any{
 		"add":       js.FuncOf(add),
 		"importCsv": js.FuncOf(importCsv),
+		"asyncAdd":  js.FuncOf(asyncAdd),
 	}))
 	onInitialized()
 	<-c

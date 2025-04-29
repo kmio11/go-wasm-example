@@ -15,6 +15,14 @@ type WasmStores = {
 
 const wasmStores: WasmStores = {} as WasmStores;
 
+globalThis.CustomWasmError = class extends Error {
+  code: string;
+  constructor(message: string, code: string) {
+    super(message);
+    this.code = code;
+  }
+};
+
 const createWasmStore = <TWasm>(initialValue: TWasm): WasmStore<TWasm> => {
   let value = initialValue;
   const listeners: (() => void)[] = [];
